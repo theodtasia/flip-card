@@ -1,55 +1,57 @@
 <template>
+    <div class = "flip_container mt-10" @click="flip_card">
+       <div class="flip w-80 relative">
 
-  <div v-bind:class="flipped ? 'flip-container flipped': 'flip-container'" @click="flipped = !flipped">
-    <div class="flip w-80 mt-10 relative">
-      <div class="front 
-       bg-yellow-300 
-       shadow-2xl
-       rounded-xl 
-       w-80">
+    <transition name="front_beh" >
+      <div 
+        v-if="!flipped"
+        key="front"
+        class="front
+        w-80 
+        h-full 
+        bg-green-200 
+        shadow-xl 
+        rounded-lg ">       
         <slot name="front"></slot>
       </div>
-      <div class="back 
-      bg-blue-300 
-       shadow-2xl
-       rounded-xl 
-       w-80">
+      <div
+        v-if="flipped"
+        key="back"
+        class="back
+        w-80 
+        h-full 
+        bg-blue-200 
+        shadow-xl 
+        rounded-lg " >       
         <slot name="back"></slot>
       </div>
-    </div>
-  </div>
+      </transition>
+      </div>
+      </div>
 </template>
 
 <script>
 export default {
-  name: 'FlipCard',
-  data: function() {
+  name: "Card",
+  data: function () {
     return {
-        flipped: false
+      flipped: false,
     };
-  }
+    
+  },methods:
+    {
+      flip_card()
+      {
+        this.flipped=!this.flipped
+      }
+    }
 };
 </script>
 
 <style type='text/css' scoped>
 
-.flip-container 
-{
-  -webkit-perspective: 1000;
-  -moz-perspective: 1000;
-  -o-perspective: 1000;
-  perspective: 1000;
-  position:relative;
-}
-
-.flip {
-  -moz-transform: perspective(1000px);
-  -moz-transform-style: preserve-3d;
-  min-height: 200px;
-}
-.front,
-.back {
-  -webkit-backface-visibility: hidden;
+.front_beh-enter-active,.front_beh-leave-active,.back_beh-enter-active,.back_beh-leave-active {
+    -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   -o-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -65,36 +67,53 @@ export default {
   transform-style: preserve-3d;
   top: 0;
   left: 0;
-  width: 100%;
-  min-height: 100px;
 }
-.back {
-  -webkit-transform: rotateY(-180deg);
-  -moz-transform: rotateY(-180deg);
-  -o-transform: rotateY(-180deg);
-  -ms-transform: rotateY(-180deg);
-  transform: rotateY(-180deg);
-  position: absolute;
-  width: 100%;
 
+.front_beh-enter{
+    transform: rotateY(-180deg);
+    opacity:1;
+    
 }
-.flip-container.flipped .back {
-  -webkit-transform: rotateY(0deg);
-  -moz-transform: rotateY(0deg);
-  -o-transform: rotateY(0deg);
-  -ms-transform: rotateY(0deg);
-  transform: rotateY(0deg);
-  
-
-}
-.flip-container.flipped .front {
-  -webkit-transform: rotateY(180deg);
-  -moz-transform: rotateY(180deg);
-  -o-transform: rotateY(180deg);
-  -ms-transform: rotateY(180deg);
+.front_beh-leave
+{
   transform: rotateY(180deg);
+  opacity: 0;
 }
-.front {
-  z-index: 2;
+
+.front_beh-leave-active
+{
+  transform: rotateY(180deg);
+  position: relative;
+  opacity: 1;
 }
+
+
+.back_beh-enter{
+    transform: rotateY(-180deg);
+    opacity:1;
+        position: relative;
+
+}
+
+.back_beh-enter-active
+{
+    transform: rotateY(-180deg);
+    opacity:1;
+        position: relative;
+
+    
+}
+.back_beh-leave
+{
+  transform: rotateY(180deg);
+  opacity: 0;
+}
+
+.back_beh-leave-active
+{
+  transform: rotateY(180deg);
+  opacity: 1;
+}
+
+
 </style>
