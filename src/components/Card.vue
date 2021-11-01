@@ -22,7 +22,7 @@
         h-full 
         bg-blue-200 
         shadow-xl 
-        rounded-lg " >       
+        rounded-lg" >       
         <slot name="back"></slot>
       </div>
       </transition>
@@ -83,37 +83,9 @@ export default {
 .front_beh-leave-active
 {
   transform: rotateY(180deg);
-  position: relative;
+  position:absolute;
   opacity: 1;
 }
 
-
-.back_beh-enter{
-    transform: rotateY(-180deg);
-    opacity:1;
-        position: relative;
-
-}
-
-.back_beh-enter-active
-{
-    transform: rotateY(-180deg);
-    opacity:1;
-        position: relative;
-
-    
-}
-.back_beh-leave
-{
-  transform: rotateY(180deg);
-  opacity: 0;
-}
-
-.back_beh-leave-active
-{
-  transform: rotateY(180deg);
-  opacity: 1;
-}
-
-
+ασ
 </style>
